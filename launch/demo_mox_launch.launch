@@ -1,0 +1,129 @@
+<!--
+################################################################
+#                                                              #
+#		ROS Gas dispersion simulator                   #
+#							       #
+################################################################
+-->
+<launch>
+<!-- ===============================================================
+     = A) Global variables                                         =
+     ===============================================================   -->
+
+<arg name="AreaSizeX" default="61" />
+<arg name="AreaSizeY" default="21" />
+<arg name="AreaSizeZ" default="6" />
+<arg name="CellSize" default="1" />
+<arg name="SourcePositionX" default="5" />
+<arg name="SourcePositionY" default="4" />
+<arg name="SourcePositionZ" default="2" />
+<arg name="FixedFrame" default="/map" />
+<!-- ethanol=0; methane=1; hydrogen=2; propanol=3; chlorine=4; flurorine=5; acetone=6; neon=7; helium=8; hot air=9-->
+<arg name="GasType" default="1" />
+
+<node pkg="tf" type="static_transform_publisher" name="sens1_broadcaster" args="7 4 2.2 0 0 0 map sensor01_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="sens2_broadcaster" args="45 4 4.5 0 0 0 map sensor02_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="sens3_broadcaster" args="30 4 3 0 0 0 map sensor03_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="sens4_broadcaster" args="5 10 2.2 0 0 0 map sensor04_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="sens5_broadcaster" args="15 4 2.5 0 0 0 map sensor05_frame 100" />
+<!-- ===============================================================
+     = B) RVIZ startup                                             =
+     ===============================================================   -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find environment)/configuration_dispsim.rviz"/>
+
+
+<!-- ===============================================================
+     = C) Environment node                                         =
+     ===============================================================   -->
+<node pkg="environment" type="environment" name="environment">
+	<param name="/cell_size" value="$(arg CellSize)"/>
+	<param name="/area_size_x" value="$(arg AreaSizeX)"/>
+	<param name="/area_size_y" value="$(arg AreaSizeY)"/>
+	<param name="/area_size_z" value="$(arg AreaSizeZ)"/>
+	<param name="/source_position_x" value="$(arg SourcePositionX)"/>
+	<param name="/source_position_y" value="$(arg SourcePositionY)"/>
+	<param name="/source_position_z" value="$(arg SourcePositionZ)"/>
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+	<param name="/environment_data" value="/home/victor/windData/environments/original.env" />
+</node>
+
+<!-- ===============================================================
+     = D) Gas dispersion node                                      =
+     ===============================================================   -->
+<node pkg="dispersion_simulation" type="odorsimulation" name="dispersal_simulation" output="screen"> 
+
+	<param name="/gas_type" value="$(arg GasType)" />
+	<param name="/snapshots" value="900" />
+	<param name="/filaments" value="400" />
+	<param name="/delta_t" value="0.3" />
+	<param name="/wind_data" value="/home/victor/windData/original/t600s_030." />
+	<param name="/area_size_x" value="$(arg AreaSizeX)"/>
+	<param name="/area_size_y" value="$(arg AreaSizeY)"/>
+	<param name="/area_size_z" value="$(arg AreaSizeZ)"/>
+	<param name="/cell_size" value="$(arg CellSize)"/>
+	<param name="/source_position_x" value="$(arg SourcePositionX)"/>
+	<param name="/source_position_y" value="$(arg SourcePositionY)"/>
+	<param name="/source_position_z" value="$(arg SourcePositionZ)"/>
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+</node> 
+
+<!-- ===============================================================
+     = E) Sensor simulator nodes                                    =
+     ===============================================================   -->
+<group ns="Mox01">
+<node pkg="simulated_MOX" type="simulated_MOX" name="fake_MOX" output="screen">
+	<param name="/sensor_model" value="2" />
+	<param name="/sensor_frame" value="sensor01_frame" />
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+	<param name="/gas_type" value="$(arg GasType)"/>
+</node>
+</group> 
+
+<group ns="Mox02">
+<node pkg="simulated_MOX" type="simulated_MOX" name="fake_MOX" output="screen">
+	<param name="/sensor_model" value="2" />
+	<param name="/sensor_frame" value="sensor02_frame" />
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+	<param name="/gas_type" value="$(arg GasType)"/>
+</node>
+</group> 
+
+<group ns="Mox03">
+<node pkg="simulated_MOX" type="simulated_MOX" name="fake_MOX" output="screen">
+	<param name="/sensor_model" value="0" />
+	<param name="/sensor_frame" value="sensor03_frame" />
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+	<param name="/gas_type" value="$(arg GasType)"/>
+</node>
+</group> 
+
+<group ns="Mox04">
+<node pkg="simulated_MOX" type="simulated_MOX" name="fake_MOX" output="screen">
+	<param name="/sensor_model" value="2" />
+	<param name="/sensor_frame" value="sensor04_frame" />
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+	<param name="/gas_type" value="$(arg GasType)"/>
+</node>
+</group> 
+
+<group ns="Mox05">
+<node pkg="simulated_MOX" type="simulated_MOX" name="fake_MOX" output="screen">
+	<param name="/sensor_model" value="1" />
+	<param name="/sensor_frame" value="sensor05_frame" />
+	<param name="/fixed_frame" value="$(arg FixedFrame)"/>
+	<param name="/gas_type" value="$(arg GasType)"/>
+</node>
+</group> 
+
+
+
+<!-- ===============================================================
+     = F) Sensor output plot                                       =
+     ===============================================================   -->
+ <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot"  args="/Mox01/Sensor_reading /Mox02/Sensor_reading /Mox03/Sensor_reading /Mox04/Sensor_reading /Mox05/Sensor_reading"/> 
+
+	
+
+
+
+</launch>
