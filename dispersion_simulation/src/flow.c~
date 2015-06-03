@@ -1,0 +1,115 @@
+#include "flow.h"
+#include "flow_reader.h"
+#include <stdlib.h>
+#include <math.h>
+
+// Initialize the flow structure
+void flow_init( struct sFlow *flow) {
+	flow->cells_count.x = 0;
+	flow->cells_count.y = 0;
+	flow->cells_count.z = 0;//3d
+	flow->cells_size.x = 1; // sepid     0.0625;
+	flow->cells_size.y = 1; // sepid     0.0625;
+	flow->cells_size.z = 1; // sepid     0.0625;//3d
+}
+
+void flow_set_uniform(struct sFlow *flow, double u, double v, double w) {
+	flow->cells_count.x = FLOW_MAX_COUNT_X;
+	flow->cells_count.y = FLOW_MAX_COUNT_Y;
+	flow->cells_count.z = FLOW_MAX_COUNT_Z; //3d
+
+int z;
+for (z = 0; z < flow->cells_count.z; z++) {
+	int x;
+	for (x = 0; x < flow->cells_count.x; x++) {
+		int y;
+		for (y = 0; y < flow->cells_count.y; y++) {
+			flow->u[x][y][z] = u;
+			flow->u[x][y][z] = v;//3d
+			flow->w[x][y][z] = w;
+			}
+		}
+	}
+}
+
+void flow_set_fancy(struct sFlow *flow) {
+	flow->cells_count.x = FLOW_MAX_COUNT_X;
+	flow->cells_count.y = FLOW_MAX_COUNT_Y;
+
+
+int z;
+for (z = 0; z < flow->cells_count.z; z++) {
+	int x;
+	for (x = 0; x < flow->cells_count.x; x++) {
+		int y;
+		for (y = 0; y < flow->cells_count.y; y++) {
+			//flow->u[x][y] = sin((double)x / 10.);
+			flow->u[x][y][z] = sin((double)x / 10.) * 0.5 + 1.0;
+			flow->w[x][y][z] = cos((double)x / 10.);
+			}
+		}
+	}
+}
+
+void flow_read(struct sFlow *flow, char *file_u, char *file_v, char *file_w, int flagFirstTime) { //3d
+	//ino bayad dorost konam ke har dafe ye sFlowReader new n ashe!!!!????????????????? // sepid
+	struct sFlowReader fr;
+	flow_reader_init(&fr, flow, flagFirstTime);
+	flow_reader_read(&fr, file_u, flow->u);
+	flow_reader_read(&fr, file_w, flow->w);
+	flow_reader_read(&fr, file_v, flow->v);//3d
+}
+
+void flow_get(struct sFlow *flow, double x, double y, double z) { //3d
+	flow->result.u = 0;
+	flow->result.v = 0; //3d
+	flow->result.w = 0;
+
+	double xd = x / flow->cells_size.x;
+	double yd = y / flow->cells_size.y;
+	double zd = z / flow->cells_size.z; //3d
+	int xi = (int)floor(xd);
+	int yi = (int)floor(yd);
+	int zi = (int)floor(zd); //3d
+	xd -= xi;
+	yd -= yi;
+	zd -= zi; //3d
+
+	if ((xi < 0) || (yi < 0) || (xi + 1 >= flow->cells_count.x) || (yi + 1 >= flow->cells_count.y)) {
+		return;
+	}
+
+	if ((flow->u[xi][yi][zi] > 900) || (flow->u[xi+1][yi][zi] > 900) || (flow->u[xi+1][yi+1][zi] > 900) || (flow->u[xi][yi+1][zi] > 900)) {
+		return;
+	}
+	if ((flow->w[xi][yi][zi] > 900) || (flow->w[xi+1][yi][zi] > 900) || (flow->w[xi+1][yi+1][zi] > 900) || (flow->w[xi][yi+1][zi] > 900)) {
+		return;
+	}
+
+	flow->result.u += flow->u[xi][yi][zi] * (1 - xd) * (1 - yd) * (1 - zd);
+	flow->result.u += flow->u[xi][yi][zi+1] * (1 - xd) * (1-yd) * zd;
+	flow->result.u += flow->u[xi][yi+1][zi] * (1 - xd) * yd * (1 - zd);
+	flow->result.u += flow->u[xi][yi+1][zi+1] * (1 - xd) * yd * zd;
+	flow->result.u += flow->u[xi+1][yi][zi] * xd * (1 - yd) * (1 - zd);
+	flow->result.u += flow->u[xi+1][yi][zi+1] * xd * (1 - yd) * zd;
+	flow->result.u += flow->u[xi+1][yi+1][zi] * xd * yd * (1 - zd);
+	flow->result.u += flow->u[xi+1][yi+1][zi+1] * xd * yd * zd;
+	
+	flow->result.w += flow->w[xi][yi][zi] * (1 - xd) * (1 - yd) * (1 - zd);
+	flow->result.w += flow->w[xi][yi][zi+1] * (1 - xd) * (1-yd) * zd;
+	flow->result.w += flow->w[xi][yi+1][zi] * (1 - xd) * yd * (1 - zd);
+	flow->result.w += flow->w[xi][yi+1][zi+1] * (1 - xd) * yd * zd;
+	flow->result.w += flow->w[xi+1][yi][zi] * xd * (1 - yd) * (1 - zd);
+	flow->result.w += flow->w[xi+1][yi][zi+1] * xd * (1 - yd) * zd;
+	flow->result.w += flow->w[xi+1][yi+1][zi] * xd * yd * (1 - zd);
+	flow->result.w += flow->w[xi+1][yi+1][zi+1] * xd * yd * zd;
+
+	flow->result.v += flow->v[xi][yi][zi] * (1 - xd) * (1 - yd) * (1 - zd);
+	flow->result.v += flow->v[xi][yi][zi+1] * (1 - xd) * (1-yd) * zd;
+	flow->result.v += flow->v[xi][yi+1][zi] * (1 - xd) * yd * (1 - zd);
+	flow->result.v += flow->v[xi][yi+1][zi+1] * (1 - xd) * yd * zd;
+	flow->result.v += flow->v[xi+1][yi][zi] * xd * (1 - yd) * (1 - zd);
+	flow->result.v += flow->v[xi+1][yi][zi+1] * xd * (1 - yd) * zd;
+	flow->result.v += flow->v[xi+1][yi+1][zi] * xd * yd * (1 - zd);
+	flow->result.v += flow->v[xi+1][yi+1][zi+1] * xd * yd * zd;
+}

@@ -1,0 +1,17 @@
+<package>
+  <description brief="simulated_tdlas">
+
+     simulated_tdlas: Is the olfaction detection system that simulates the response of a remote gas sensor to the simulated gas.
+
+  </description>
+  <author>riccardo, marco</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+    <depend package="roscpp"/>
+  <depend package="visualization_msgs"/>
+  <depend package="std_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="msgs_and_srvs"/>
+</package>
+
+

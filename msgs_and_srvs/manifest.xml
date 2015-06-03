@@ -1,0 +1,14 @@
+<package>
+  <description brief="msgs_and_srvs">
+
+     msgs_and_srvs
+
+  </description>
+  <author>ali</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/msgs_and_srvs</url>
+
+</package>
+
+

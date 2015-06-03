@@ -1,0 +1,292 @@
+
+#include "main.h"
+using namespace std;
+
+//---------------service response----------------------//
+  bool pos(msgs_and_srvs::SensorPosition::Request  &req,
+         msgs_and_srvs::SensorPosition::Response &res )
+{
+	//concentration=concentration at(x,y,z):
+	res.odor_r0=concentration(req.x_r0, req.y_r0, req.z_r0);
+	res.odor_r1=concentration(req.x_r1, req.y_r1, req.z_r1);
+	res.odor_r2=concentration(req.x_r2, req.y_r2, req.z_r2);
+
+  return true;
+}
+
+  //source location (z-axis)
+  void sourceCallback(const msgs_and_srvs::SourceLoc::ConstPtr& msg)
+{
+				algorithm.source.z=msg->loc;
+}
+
+
+//====================================================================================
+//
+//			M   A   I   N       L   O   O   P 
+//
+//====================================================================================
+
+
+
+int main(int argc, char **argv) {
+
+	//(1) Creates a log file. 
+	ofstream myfile;
+	myfile.open ("pos.log");
+	configuration_init();
+	configuration_parse_commandline(argc, argv);
+
+	//(2) Initialize the random number generator
+	mt_goodseed();
+
+	//(3) Creates folders for videos and results
+	mkdir("results", 0755);
+	mkdir("video", 0755);
+
+	//(4) Initializes and loads the node configuration
+	ros::init(argc, argv, NODE_NAME);
+	ros::NodeHandle n;
+	loadNodeParameters(n);
+
+input_snapshots=400;
+
+	//(5) Initializes and starts the gas dispersion simulation
+	algorithm_init(input_wind_data.c_str(),input_snapshots,input_filament_number);
+
+
+	//(6) Loads the plume constants w.r.t. the selected gas
+	ROS_INFO("I will start the plume");
+	plume_start();
+	ROS_INFO("Plume started");
+
+
+
+
+
+
+	//Plume publisher
+	ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("dispersion_visualization", 1);
+
+	//Service for chemical value
+	ros::Publisher ChemicalValue = n.advertise<msgs_and_srvs::ChemicalValue>("ChemicalValue", 10);
+
+	//source height
+	ros::Subscriber sub = n.subscribe("SourceLoc", 10, sourceCallback);
+	
+ 	
+
+
+	ros::Rate r(1/input_delta_t);
+
+	bool flow=false;
+
+  while (ros::ok())
+  {
+	  
+	ROS_INFO("In the loop");  
+	//chemical id publisher
+	msgs_and_srvs::ChemicalValue chemical;
+	chemical.id=input_gas_type;
+	density=Chemicalvalue[input_gas_type];
+
+	//Service respone (hit_rate.value)
+	ros::ServiceServer service = n.advertiseService("odor_value", pos);
+
+
+
+    //ROS_INFO("Waiting for sensor position.");
+
+    //marker points for filaments
+    visualization_msgs::Marker draw;
+    draw.header.frame_id  ="/map";
+    draw.header.stamp =ros::Time::now();
+    draw.ns = "plume_simulation";
+    draw.action = visualization_msgs::Marker::ADD;
+    draw.pose.orientation.w = 1.0;
+    draw.id = 0;
+    draw.type = visualization_msgs::Marker::POINTS;
+    draw.color.a = 1;
+ROS_INFO("VIsualization stuff ready");
+//Calculating the hit_rate
+if(flow==true){
+	ROS_INFO("Calculating the hit rate");
+	algorithm_hit_rate_calculate(algorithm.source.x - 0.5, algorithm.source.y - 0.5,algorithm.source.z-0.5, 
+                                     algorithm.source.x + 0.5, algorithm.source.y + 0.5,algorithm.source.z+0.5);
+}   flow=true;
+
+	ROS_INFO("IM OK after hit rate");
+	for(int k=0;k<algorithm.marker.counter*input_filament_number; k++)
+		{
+	//points
+ 	geometry_msgs::Point p;
+
+	//color of points	
+	std_msgs::ColorRGBA c;
+
+	//width of points
+	draw.scale.x = algorithm.marker.width[k];
+	draw.scale.y = algorithm.marker.width[k];
+	draw.scale.z = algorithm.marker.width[k];
+
+	//assigning the point positions
+	p.x =algorithm.marker.x[k];
+	p.y = algorithm.marker.y[k];
+	p.z = algorithm.marker.z[k];
+
+	//c.g=1;
+        c.a=1;
+
+	//uncomment these two lines to visualize color of filaments according to increasing width
+	red=algorithm.marker.colour[k];
+	color_width(&red, &green, &blue); c.r=red; c.g=green; c.b=blue;
+
+	//uncomment these two lines to visualizecolor of filaments according to concentration
+	//red = concentration(p.x, p.y, p.z);
+	//color_concentration(&red, &green, &blue); c.r=red; c.g=green; c.b=blue;
+
+		
+		draw.colors.push_back(c);
+		draw.points.push_back(p);
+		}
+
+	//log of plume height
+	myfile << algorithm.marker.z[0] <<"\n";
+
+	//Publishing the points
+	marker_pub.publish(draw);
+
+	//publishing the chemical value
+	ChemicalValue.publish(chemical);
+
+  r.sleep();	
+  ros::spinOnce();
+
+  }
+
+  myfile.close(); 
+	return 0;
+}
+
+
+
+void	loadNodeParameters(ros::NodeHandle private_nh)
+{
+
+	std::string parameter_name;
+
+	//Source postion (x)
+	parameter_name=std::string(NODE_NAME)+std::string("/source_position_x");
+	private_nh.param<double>(parameter_name, input_source_pos_x, DEFAULT_SOURCE_POS_X);
+
+	//Source postion (y)
+	parameter_name=std::string(NODE_NAME)+std::string("/source_position_y");
+	private_nh.param<double>(parameter_name, input_source_pos_y, DEFAULT_SOURCE_POS_Y);
+
+	//Source postion (z)
+	parameter_name=std::string(NODE_NAME)+std::string("/source_position_z");
+	private_nh.param<double>(parameter_name, input_source_pos_z, DEFAULT_SOURCE_POS_Z);
+
+	//Gas type
+	parameter_name=std::string(NODE_NAME)+std::string("/gas_type");
+	private_nh.param<int>(parameter_name, input_gas_type, DEFAULT_GAS_TYPE);
+
+	//delta_t
+	parameter_name=std::string(NODE_NAME)+std::string("/delta_t");
+	private_nh.param<double>(parameter_name, input_delta_t, DEFAULT_DELTA_T);
+
+	//wind files
+	parameter_name=std::string(NODE_NAME)+std::string("/wind_data");
+	private_nh.param<std::string>(parameter_name, input_wind_data, DEFAULT_WIND_DATA);
+
+	//filaments
+	parameter_name=std::string(NODE_NAME)+std::string("/filaments");
+	private_nh.param<int>(parameter_name, input_filament_number, DEFAULT_FILAMENT_NUMBER);
+
+
+	//wind files
+	parameter_name=std::string(NODE_NAME)+std::string("/fixed_frame");
+	private_nh.param<std::string>(parameter_name, input_fixed_frame, DEFAULT_FIXED_FRAME);
+	
+	//snapshots
+	parameter_name=std::string(NODE_NAME)+std::string("/snapshots");
+	private_nh.param<int>(parameter_name, input_snapshots, 200);
+
+
+	ROS_INFO("The data provided in the roslaunch file is:");
+	ROS_INFO("Source position: (%f,%f,%f)",input_source_pos_x,input_source_pos_y,input_source_pos_z);
+	ROS_INFO("Gas type: %d",input_gas_type);
+	ROS_INFO("Delta time: %f",input_delta_t);
+	ROS_INFO("wind file location: %s",input_wind_data.c_str());
+	ROS_INFO("Number of filaments: %d",input_filament_number);
+	ROS_INFO("Fixed frame: %s",input_fixed_frame.c_str());
+	ROS_INFO("Snapshots: %d",input_snapshots);
+
+
+
+}
+
+
+//===================================================================
+//	loads node parameters
+//===================================================================
+/*void	loadNodeParameters(ros::NodeHandle private_nh)
+{
+
+	std::string parameter_name;
+	parameter_name=std::string(NODE_NAME)+std::string("/source_position_x");
+	private_nh.param(parameter_name.c_str(), input_source_pos_x, DEFAULT_SOURCE_POS_X);
+
+	parameter_name=std::string(NODE_NAME)+std::string("/rmld_frame");
+	private_nh.param(parameter_name.c_str(), rmld_frame, std::string(DEFAULT_RMLD_FRAME));
+
+	parameter_name=std::string(NODE_NAME)+std::string("/fixed_frame");
+	private_nh.param(parameter_name.c_str(), fixed_frame, std::string(DEFAULT_FIXED_FRAME));
+
+	parameter_name=std::string(NODE_NAME)+std::string("/pc_topic");
+	private_nh.param(parameter_name, pc_topic, std::string(DEFAULT_PC_TOPIC));
+
+	parameter_name=std::string(NODE_NAME)+std::string("/rmld_topic");
+	private_nh.param(parameter_name, rmld_topic, std::string(DEFAULT_RMLD_TOPIC));
+
+	parameter_name=std::string(NODE_NAME)+std::string("/voxel_size");
+	private_nh.param(parameter_name, voxel_size,DEFAULT_VOXEL);
+
+	
+	parameter_name=std::string(NODE_NAME)+std::string("/publish_model");
+	private_nh.param(parameter_name, publish_model, DEFAULT_MODEL_PUB);
+
+	parameter_name=std::string(NODE_NAME)+std::string("/display_rays");
+	private_nh.param(parameter_name, display_rays, DEFAULT_DISPLAY_RAYS);
+
+	parameter_name=std::string(NODE_NAME)+std::string("/output_log");
+	private_nh.param(parameter_name, log_file_name, std::string(DEFAULT_FILE_NAME));
+
+	if (strcmp(log_file_name.c_str(),DEFAULT_FILE_NAME)!=0){
+		data_recording_enabled=true;
+	}
+	else{
+		data_recording_enabled=false;
+	}
+
+
+  	ROS_INFO("=============================");
+	ROS_INFO("Node Configuration:");
+	ROS_INFO("sampling_rate set to %f",refresh_rate_hz);
+	ROS_INFO("PC topic: %s",pc_topic.c_str());
+	ROS_INFO("RMLD frame: %s",rmld_frame.c_str());
+	ROS_INFO("RMLD topic: %s",rmld_topic.c_str());
+	ROS_INFO("fixed frame: %s",fixed_frame.c_str());
+	ROS_INFO("model publish enabled: %d",publish_model);
+	ROS_INFO("display rays enabled: %d",display_rays);
+	ROS_INFO("Voxel size: %f",voxel_size);
+
+	if (data_recording_enabled) {
+		ROS_INFO("Recording location %s",log_file_name.c_str());
+
+	}
+
+}	
+*/
+
+

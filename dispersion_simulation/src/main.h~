@@ -1,0 +1,43 @@
+#include "foamToFilament.h"
+#include "utility.h"
+#include "algorithm.h"
+#include "global.h"
+#include "configuration.h"
+#include "mtwist.h"
+#include "filament.h"
+#include <msgs_and_srvs/ChemicalValue.h>
+#include <msgs_and_srvs/SourceLoc.h>
+#include <fstream>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <ros/ros.h>
+#include <visualization_msgs/Marker.h>
+#include <msgs_and_srvs/SensorPosition.h>
+#include "Filamentproperties.h"
+#include <string.h>
+
+
+#define DEFAULT_SOURCE_POS_X	0
+#define DEFAULT_SOURCE_POS_Y	0
+#define DEFAULT_SOURCE_POS_Z	0.5
+
+#define	DEFAULT_GAS_TYPE	METHANE_ID
+#define	DEFAULT_DELTA_T		1
+#define	DEFAULT_WIND_DATA	"/home/victor/ros_catkin/odour_simulation_ws/src/dispersion_simulation/CSV/Velocity0."
+#define	DEFAULT_FILAMENT_NUMBER	300
+#define	DEFAULT_FIXED_FRAME	"/map"
+
+#define	NODE_NAME 		"dispersal_simulation"
+
+
+double		input_source_pos_x;
+double		input_source_pos_y;
+double		input_source_pos_z;
+
+int		input_gas_type;
+double		input_delta_t;
+std::string	input_wind_data;
+int		input_filament_number;
+std::string	input_fixed_frame;
+
+void loadNodeParameters(ros::NodeHandle private_nh);

@@ -1,0 +1,294 @@
+Background\ ColorR=0
+Background\ ColorG=0
+Background\ ColorB=0
+Fixed\ Frame=/map
+Target\ Frame=<Fixed Frame>
+Axes.Enabled=1
+Axes.Length=1
+Axes.Radius=0.1
+Axes.Reference\ Frame=<Fixed Frame>
+Grid.Alpha=0.5
+Grid.Cell\ Size=1
+Grid.ColorR=0.5
+Grid.ColorG=0.5
+Grid.ColorB=0.5
+Grid.Enabled=0
+Grid.Line\ Style=0
+Grid.Line\ Width=0.03
+Grid.Normal\ Cell\ Count=0
+Grid.OffsetX=0
+Grid.OffsetY=0
+Grid.OffsetZ=0
+Grid.Plane=0
+Grid.Plane\ Cell\ Count=120
+Grid.Reference\ Frame=<Fixed Frame>
+Map.Alpha=0.3
+Map.Draw\ Behind=1
+Map.Enabled=1
+Map.Topic=/map
+Markers.Enabled=1
+Markers.Marker\ Topic=/visualization_plume
+Markers2.Enabled=1
+Markers2.Marker\ Topic=/dispersion_visualization
+Markers2.plume_simulation=1
+Markers3.Enabled=1
+Markers3.Marker\ Topic=/visualization_mmm
+Markers4.Enabled=1
+Markers4.Marker\ Topic=/envirnoment
+Markers5.Enabled=1
+Markers5.Marker\ Topic=/environment_visualization
+Markers5.environment_visualization=1
+Markers6.Enabled=1
+Markers6.Marker\ Topic=/sensor_display
+Markers6.environment_visualization=1
+Robot\ 0\:\ Global\ Plan.Alpha=1
+Robot\ 0\:\ Global\ Plan.ColorR=1
+Robot\ 0\:\ Global\ Plan.ColorG=0.141176
+Robot\ 0\:\ Global\ Plan.ColorB=0
+Robot\ 0\:\ Global\ Plan.Enabled=1
+Robot\ 0\:\ Global\ Plan.Topic=/robot_0/move_base_node/TrajectoryPlannerROS/global_plan
+Robot\ 0\:\ Inflated\ Obstacles.Alpha=1
+Robot\ 0\:\ Inflated\ Obstacles.ColorR=1
+Robot\ 0\:\ Inflated\ Obstacles.ColorG=0
+Robot\ 0\:\ Inflated\ Obstacles.ColorB=0
+Robot\ 0\:\ Inflated\ Obstacles.Enabled=1
+Robot\ 0\:\ Inflated\ Obstacles.Topic=/robot_0/move_base_node/local_costmap/inflated_obstacles
+Robot\ 0\:\ Local\ Plan.Alpha=1
+Robot\ 0\:\ Local\ Plan.ColorR=0.980392
+Robot\ 0\:\ Local\ Plan.ColorG=0.0117647
+Robot\ 0\:\ Local\ Plan.ColorB=0.0431373
+Robot\ 0\:\ Local\ Plan.Enabled=1
+Robot\ 0\:\ Local\ Plan.Topic=/robot_0/move_base_node/TrajectoryPlannerROS/local_plan
+Robot\ 0\:\ NavFn\ Plan.Alpha=1
+Robot\ 0\:\ NavFn\ Plan.ColorR=1
+Robot\ 0\:\ NavFn\ Plan.ColorG=0.109804
+Robot\ 0\:\ NavFn\ Plan.ColorB=0
+Robot\ 0\:\ NavFn\ Plan.Enabled=1
+Robot\ 0\:\ NavFn\ Plan.Topic=/robot_0/move_base_node/NavfnROS/plan
+Robot\ 0\:\ Obstacles.Alpha=1
+Robot\ 0\:\ Obstacles.ColorR=1
+Robot\ 0\:\ Obstacles.ColorG=0.0901961
+Robot\ 0\:\ Obstacles.ColorB=0
+Robot\ 0\:\ Obstacles.Enabled=1
+Robot\ 0\:\ Obstacles.Topic=/robot_0/move_base_node/local_costmap/obstacles
+Robot\ 0\:\ Robot\ Footprint.Alpha=1
+Robot\ 0\:\ Robot\ Footprint.ColorR=1
+Robot\ 0\:\ Robot\ Footprint.ColorG=0.0862745
+Robot\ 0\:\ Robot\ Footprint.ColorB=0
+Robot\ 0\:\ Robot\ Footprint.Enabled=1
+Robot\ 0\:\ Robot\ Footprint.Topic=/robot_0/move_base_node/local_costmap/robot_footprint
+Robot\ 0\:\ Unknown\ Space.Alpha=1
+Robot\ 0\:\ Unknown\ Space.ColorR=1
+Robot\ 0\:\ Unknown\ Space.ColorG=0.0313726
+Robot\ 0\:\ Unknown\ Space.ColorB=0
+Robot\ 0\:\ Unknown\ Space.Enabled=0
+Robot\ 0\:\ Unknown\ Space.Topic=/robot_0/move_base_node/local_costmap/unknown_space
+Robot\ 1\:\ Global\ Plan.Alpha=1
+Robot\ 1\:\ Global\ Plan.ColorR=0
+Robot\ 1\:\ Global\ Plan.ColorG=0.152941
+Robot\ 1\:\ Global\ Plan.ColorB=1
+Robot\ 1\:\ Global\ Plan.Enabled=1
+Robot\ 1\:\ Global\ Plan.Topic=/robot_1/move_base_node/TrajectoryPlannerROS/global_plan
+Robot\ 1\:\ Inflated\ Obstacles.Alpha=1
+Robot\ 1\:\ Inflated\ Obstacles.ColorR=0
+Robot\ 1\:\ Inflated\ Obstacles.ColorG=0.0627451
+Robot\ 1\:\ Inflated\ Obstacles.ColorB=1
+Robot\ 1\:\ Inflated\ Obstacles.Enabled=1
+Robot\ 1\:\ Inflated\ Obstacles.Topic=/robot_1/move_base_node/local_costmap/inflated_obstacles
+Robot\ 1\:\ Local\ Plan.Alpha=1
+Robot\ 1\:\ Local\ Plan.ColorR=0.0901961
+Robot\ 1\:\ Local\ Plan.ColorG=0
+Robot\ 1\:\ Local\ Plan.ColorB=1
+Robot\ 1\:\ Local\ Plan.Enabled=1
+Robot\ 1\:\ Local\ Plan.Topic=/robot_1/move_base_node/TrajectoryPlannerROS/local_plan
+Robot\ 1\:\ Navfn\ Plan.Alpha=1
+Robot\ 1\:\ Navfn\ Plan.ColorR=0.0705882
+Robot\ 1\:\ Navfn\ Plan.ColorG=0
+Robot\ 1\:\ Navfn\ Plan.ColorB=1
+Robot\ 1\:\ Navfn\ Plan.Enabled=1
+Robot\ 1\:\ Navfn\ Plan.Topic=/robot_1/move_base_node/NavfnROS/plan
+Robot\ 1\:\ Obstacles.Alpha=1
+Robot\ 1\:\ Obstacles.ColorR=0
+Robot\ 1\:\ Obstacles.ColorG=0.129412
+Robot\ 1\:\ Obstacles.ColorB=1
+Robot\ 1\:\ Obstacles.Enabled=1
+Robot\ 1\:\ Obstacles.Topic=/robot_1/move_base_node/local_costmap/obstacles
+Robot\ 1\:\ Robot\ Footprint.Alpha=1
+Robot\ 1\:\ Robot\ Footprint.ColorR=0
+Robot\ 1\:\ Robot\ Footprint.ColorG=0.207843
+Robot\ 1\:\ Robot\ Footprint.ColorB=1
+Robot\ 1\:\ Robot\ Footprint.Enabled=1
+Robot\ 1\:\ Robot\ Footprint.Topic=/robot_1/move_base_node/local_costmap/robot_footprint
+Robot\ 1\:\ Unknown\ Space.Alpha=1
+Robot\ 1\:\ Unknown\ Space.ColorR=0
+Robot\ 1\:\ Unknown\ Space.ColorG=0.0156863
+Robot\ 1\:\ Unknown\ Space.ColorB=1
+Robot\ 1\:\ Unknown\ Space.Enabled=0
+Robot\ 1\:\ Unknown\ Space.Topic=/robot_1/move_base_node/local_costmap/unknown_space
+Robot\ 2\:\ Global\ Plan.Alpha=1
+Robot\ 2\:\ Global\ Plan.ColorR=0.121569
+Robot\ 2\:\ Global\ Plan.ColorG=1
+Robot\ 2\:\ Global\ Plan.ColorB=0
+Robot\ 2\:\ Global\ Plan.Enabled=1
+Robot\ 2\:\ Global\ Plan.Topic=/robot_2/move_base_node/TrajectoryPlannerROS/global_plan
+Robot\ 2\:\ Inflated\ Obstacles.Alpha=1
+Robot\ 2\:\ Inflated\ Obstacles.ColorR=0.0392157
+Robot\ 2\:\ Inflated\ Obstacles.ColorG=1
+Robot\ 2\:\ Inflated\ Obstacles.ColorB=0
+Robot\ 2\:\ Inflated\ Obstacles.Enabled=1
+Robot\ 2\:\ Inflated\ Obstacles.Topic=/robot_2/move_base_node/local_costmap/inflated_obstacles
+Robot\ 2\:\ Local\ Plan.Alpha=1
+Robot\ 2\:\ Local\ Plan.ColorR=0
+Robot\ 2\:\ Local\ Plan.ColorG=1
+Robot\ 2\:\ Local\ Plan.ColorB=0.0705882
+Robot\ 2\:\ Local\ Plan.Enabled=1
+Robot\ 2\:\ Local\ Plan.Topic=/robot_2/move_base_node/TrajectoryPlannerROS/local_plan
+Robot\ 2\:\ Navfn\ Plan.Alpha=1
+Robot\ 2\:\ Navfn\ Plan.ColorR=0.152941
+Robot\ 2\:\ Navfn\ Plan.ColorG=1
+Robot\ 2\:\ Navfn\ Plan.ColorB=0
+Robot\ 2\:\ Navfn\ Plan.Enabled=1
+Robot\ 2\:\ Navfn\ Plan.Topic=/robot_2/move_base_node/NavfnROS/plan
+Robot\ 2\:\ Obstacles.Alpha=1
+Robot\ 2\:\ Obstacles.ColorR=0.0862745
+Robot\ 2\:\ Obstacles.ColorG=1
+Robot\ 2\:\ Obstacles.ColorB=0
+Robot\ 2\:\ Obstacles.Enabled=1
+Robot\ 2\:\ Obstacles.Topic=/robot_2/move_base_node/local_costmap/obstacles
+Robot\ 2\:\ Robot\ Footprint.Alpha=1
+Robot\ 2\:\ Robot\ Footprint.ColorR=0.168627
+Robot\ 2\:\ Robot\ Footprint.ColorG=1
+Robot\ 2\:\ Robot\ Footprint.ColorB=0
+Robot\ 2\:\ Robot\ Footprint.Enabled=1
+Robot\ 2\:\ Robot\ Footprint.Topic=/robot_2/move_base_node/local_costmap/robot_footprint
+Robot\ 2\:\ Unknown\ Space.Alpha=1
+Robot\ 2\:\ Unknown\ Space.ColorR=0.113725
+Robot\ 2\:\ Unknown\ Space.ColorG=1
+Robot\ 2\:\ Unknown\ Space.ColorB=0
+Robot\ 2\:\ Unknown\ Space.Enabled=0
+Robot\ 2\:\ Unknown\ Space.Topic=/robot_2/move_base_node/local_costmap/unknown_space
+Tool\ 2D\ Nav\ GoalTopic=robot_0/move_base_simple/goal
+Tool\ 2D\ Pose\ EstimateTopic=initialpose
+Camera\ Type=rviz::OrbitViewController
+Camera\ Config=0.795999 0.0674963 63.8848 1.5745 3.6407 -11.9659
+Property\ Grid\ State=selection=Map.Enabled;expanded=.Global Options,Map.Enabled,Robot 0: Robot Footprint.Enabled,Robot 0: Obstacles.Enabled,Robot 0: Inflated Obstacles.Enabled,Robot 0: Unknown Space.Enabled,Robot 0: Local Plan.Enabled,Robot 0: Global Plan.Enabled,Robot 0: NavFn Plan.Enabled,Robot 1: Robot Footprint.Enabled,Robot 1: Obstacles.Enabled,Robot 1: Inflated Obstacles.Enabled,Robot 1: Unknown Space.Enabled,Robot 1: Local Plan.Enabled,Robot 1: Global Plan.Enabled,Robot 1: Navfn Plan.Enabled,Robot 2: Robot Footprint.Enabled,Robot 2: Obstacles.Enabled,Robot 2: Inflated Obstacles.Enabled,Robot 2: Unknown Space.Enabled,Robot 2: Local Plan.Enabled,Robot 2: Global Plan.Enabled,Robot 2: Navfn Plan.Enabled,Grid.Enabled,Grid.Enabled.Grid.StatusTopStatus,Markers.Enabled,Markers.Enabled.Markers.Namespaces,Axes.Enabled,Markers2.Enabled,Markers2.Enabled.Markers2.Namespaces,Markers3.Enabled,Markers3.Enabled.Markers3.Namespaces,Markers4.Enabled,Markers4.Enabled.Markers4.Namespaces,Markers5.Enabled,Markers5.Enabled.Markers5.Namespaces,Markers6.Enabled,Markers6.Enabled.Markers6.Namespaces;scrollpos=0,142;splitterpos=125,253;ispageselected=1
+[Display0]
+Name=Map
+Package=rviz
+ClassName=rviz::MapDisplay
+[Display1]
+Name=Robot 0: Robot Footprint
+Package=rviz
+ClassName=rviz::PolygonDisplay
+[Display2]
+Name=Robot 0: Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display3]
+Name=Robot 0: Inflated Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display4]
+Name=Robot 0: Unknown Space
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display5]
+Name=Robot 0: Local Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display6]
+Name=Robot 0: Global Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display7]
+Name=Robot 0: NavFn Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display8]
+Name=Robot 1: Robot Footprint
+Package=rviz
+ClassName=rviz::PolygonDisplay
+[Display9]
+Name=Robot 1: Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display10]
+Name=Robot 1: Inflated Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display11]
+Name=Robot 1: Unknown Space
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display12]
+Name=Robot 1: Local Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display13]
+Name=Robot 1: Global Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display14]
+Name=Robot 1: Navfn Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display15]
+Name=Robot 2: Robot Footprint
+Package=rviz
+ClassName=rviz::PolygonDisplay
+[Display16]
+Name=Robot 2: Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display17]
+Name=Robot 2: Inflated Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display18]
+Name=Robot 2: Unknown Space
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display19]
+Name=Robot 2: Local Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display20]
+Name=Robot 2: Global Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display21]
+Name=Robot 2: Navfn Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display22]
+Name=Grid
+Package=rviz
+ClassName=rviz::GridDisplay
+[Display23]
+Name=Markers
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[Display24]
+Name=Axes
+Package=rviz
+ClassName=rviz::AxesDisplay
+[Display25]
+Name=Markers2
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[Display26]
+Name=Markers3
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[Display27]
+Name=Markers4
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[Display28]
+Name=Markers5
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[Display29]
+Name=Markers6
+Package=rviz
+ClassName=rviz::MarkerDisplay

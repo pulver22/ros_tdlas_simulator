@@ -1,0 +1,42 @@
+<package>
+  <name>simulated_tdlas</name>
+  <version>1.0.0</version>
+  <description>simulated_tdlas: Is the olfaction detection system that simulates the response of a remote gas sensor to the simulated gas.</description>
+  <maintainer email="pulver22@gmail.com">Riccardo</maintainer>
+  <maintainer email="marco.trabattoni@outlook.com">Marco</maintainer>
+
+  <license>BSD</license>
+
+  
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Riccardo</author>
+  <author>Marco</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>roscpp</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>msgs_and_srvs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>roscpp</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <!--<run_depend>tf</run_depend>-->
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>msgs_and_srvs</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>visualization_msgs</test_depend> -->
+  <!-- <test_depend>std_msgs</test_depend> -->
+  <!-- <test_depend>nav_msgs</test_depend> -->
+  <!-- <test_depend>msgs_and_srvs</test_depend> -->
+
+</package>

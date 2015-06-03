@@ -1,0 +1,18 @@
+<package>
+  <description brief="dispersion_simulation">
+
+     dispersion_simulation: Implements the filament-based gas dispersal simulation. Gases with different densities are simulated such as: ethanol, methane and hydrogen etc.
+
+  </description>
+  <author>ali_abdul_khaliq</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/dispersion_simulation</url>
+  <depend package="roscpp"/>
+  <depend package="visualization_msgs"/>
+  <depend package="std_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="msgs_and_srvs"/>
+</package>
+
+

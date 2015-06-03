@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -g   -shared -Wl,-soname,libgtest.so -o /home/ali/ros_workspace/odor_simulation/msgs_and_srvs/lib/libgtest.so CMakeFiles/gtest.dir/src/gtest-all.cc.o -L/home/ali/ros_workspace/odor_simulation/msgs_and_srvs/build/gtest/src -lpthread -Wl,-rpath,/home/ali/ros_workspace/odor_simulation/msgs_and_srvs/build/gtest/src 

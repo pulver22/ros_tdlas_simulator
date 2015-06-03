@@ -1,0 +1,16 @@
+<package>
+  <description brief="environment">
+
+     environment: Simulates the environment that contains obstacles, walls and a gas source.
+
+  </description>
+  <author>ali_abdul_khaliq</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/environment</url>
+  <depend package="visualization_msgs"/>
+  <depend package="msgs_and_srvs"/>
+  <depend package="tf"/>
+</package>
+
+

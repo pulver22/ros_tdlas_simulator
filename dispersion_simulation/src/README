@@ -1,0 +1,5 @@
+simulationType  RASModel
+RASModel        kOmegaSST //standard coefficient
+2 inlet flow ---> uniform (1 0 0)   uniform (0 2 0)
+1 outlet
+quadrangle obstacle

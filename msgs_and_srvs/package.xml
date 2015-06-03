@@ -1,0 +1,23 @@
+<package>
+  <name>msgs_and_srvs</name>
+  <version>1.0.0</version>
+  <description>msgs_and_srvs</description>
+  <maintainer email="Ali-Abdul.Khaliq@oru.se">ali</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/msgs_and_srvs</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>ali</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+
+  <!-- Dependencies needed after this package is compiled. -->
+
+  <!-- Dependencies needed only for running tests. -->
+
+</package>

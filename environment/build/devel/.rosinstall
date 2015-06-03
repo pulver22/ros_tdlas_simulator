@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ali/ros_workspace/odor_simulation/environment/build/devel/setup.sh
