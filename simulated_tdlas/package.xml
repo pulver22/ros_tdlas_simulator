@@ -1,6 +1,6 @@
 <package>
   <name>simulated_tdlas</name>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <description>simulated_tdlas: Is the olfaction detection system that simulates the response of a remote gas sensor to the simulated gas.</description>
   <maintainer email="Ali-Abdul.Khaliq@oru.se">ali</maintainer>
   <maintainer email="pulver22@gmail.com">Riccardo</maintainer>

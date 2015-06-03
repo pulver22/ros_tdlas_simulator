@@ -1,0 +1,18 @@
+<package>
+  <description brief="simulated_MOX">
+
+     simulated_MOX: Is the olfaction detection system that simulates the response of different metal oxide sensors (TGS 2600, TGS 2611 and TGS 2620) to the simulated gas.
+
+  </description>
+  <author>ali</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/simulated_MOX</url>
+    <depend package="roscpp"/>
+  <depend package="visualization_msgs"/>
+  <depend package="std_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="msgs_and_srvs"/>
+</package>
+
+
